@@ -1,0 +1,59 @@
+.post{
+    height: 509px;
+    width: 600px;
+    background-color: cadetblue;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    cursor: pointer;
+    margin: auto;
+}
+.user{
+    /* margin-left: 20px; */
+    background-color: aliceblue;
+    width: 100%;
+    text-align: start;
+}
+.user p{
+    margin-left: 3%;
+}
+
+.mod {
+    position: absolute;
+    z-index: 3;
+    background: white;
+    border: 1px solid #ccc;
+    transition: 1.1s ease-out;
+    box-shadow: -2rem 2rem 2rem rgba(0, 0, 0, 0.3);
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  img {
+    width: 100%; /* or any custom size */
+    height: 100%; 
+    object-fit: contain;
+}
+
+
+  html,
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+.mod-bg{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 2px;
+    bottom: auto;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+}

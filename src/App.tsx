@@ -1,26 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Button from './components/Button/button';
+import Title from './components/Title/title';
+import Feed from './components/Feed/feed';
+import Username from './components/Username/username';
 
-function App() {
+function App1() {
   return (
+    <div className='main'>
+    <div className='Header'>
+    <Title />
+    <Username username={'kash'}/>
+    <Button text='Sign Out' onClick={() => { console.log("click"); } } />
+    </div>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Feed data={''}/>
+    </div>
     </div>
   );
 }
 
-export default App;
+export default App1;
+

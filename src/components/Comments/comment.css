@@ -1,0 +1,6 @@
+.commentSection{
+    position: relative;
+    min-height: 200px;
+    color: rgb(85, 23, 23);
+    z-index: 3;
+}
