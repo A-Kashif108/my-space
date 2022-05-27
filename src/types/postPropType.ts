@@ -3,7 +3,7 @@ type PostProps = {
     user: string,
     like : number
     dislike:number,
-    commentData:string,
+    id:string,
     imageurl:string,
 }
 export type {PostProps}

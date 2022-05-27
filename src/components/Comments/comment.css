@@ -1,6 +1,37 @@
 .commentSection{
     position: relative;
-    min-height: 200px;
-    color: rgb(85, 23, 23);
-    z-index: 3;
+    min-height: 150px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    /* z-index: 3; */
+}
+.comment{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-shadow: 0px 0px 2px #787878;
+    gap: 5px;
+    width: 80%;
+    height: 50px;
+    background-color: #d7d7d7;
+}
+.userNm{
+    font-weight: bold;
+    color: rgb(8, 8, 8);
+    position: relative;
+    left: 0px;
+    margin-left: 8px;
+    margin-top: 4px;
+    /* width: 100%; */
+    font-size: 11px;
+}
+
+.txt{
+    position: relative;
+    margin-left: 8px;
+    margin-top: 4px;
+    color: rgb(133, 164, 192);
 }

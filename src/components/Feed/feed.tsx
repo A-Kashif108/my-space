@@ -12,9 +12,9 @@ const Feed: React.FC<FeedProps> = (props:FeedProps)=>{
     const [showModal, setShowModal] = useState(false);
     const [data, setData] = useState<any[]>([]);
     
-    
     useEffect(()=>{
-        getPosts();},
+        getPosts();
+    },
     []);
     function getPosts() {
         const postCollectionRef = collection(db,"Posts");
@@ -46,10 +46,6 @@ const Feed: React.FC<FeedProps> = (props:FeedProps)=>{
             setImage(fileList[0]);
         };
 
-        const handleSelect = function (e: React.ChangeEvent<HTMLInputElement>){
-            console.log(e.target.value);
-        }
-    
         const handleSubmit = () => {
             const imageRef =  ref(storage, fileName);
             const uploadPost=uploadBytes(imageRef, image);
@@ -107,7 +103,7 @@ const Feed: React.FC<FeedProps> = (props:FeedProps)=>{
         <div className="page">
             <div className="feed">
                 <>
-                {data.map((doc,index)=>{return<Post user={doc.user} like={doc.like} dislike={doc.dislike} commentData={""} imageurl={doc.imgUrl}/>})}
+                {data.map((doc)=>{return<Post user={doc.user} like={doc.like} dislike={doc.dislike} id={doc.id} imageurl={doc.imgUrl} />})}
                 </>
             </div>
             <button className="AddPost" onClick={()=>{setShowModal(true)}}>Add Post</button>
