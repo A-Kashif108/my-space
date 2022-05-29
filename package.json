@@ -2,7 +2,7 @@
   "name": "my-space",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://A-Kashif108.github.io/my-space",
+  "homepage": "http://a-kashif108.github.io/my-space",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
