@@ -3,37 +3,46 @@ import { FeedProps } from "../../types/feedPropType";
 import Post from "../Post/post";
 import "./feed.css";
 import './addpost.css';
-import { storage,db } from "../../services/firebase";
-import { collection, addDoc, query, where, getDocs, onSnapshot, DocumentData } from "firebase/firestore";
+import { storage,db, auth } from "../../services/firebase";
+import { collection, addDoc, query, where, getDocs,  getDoc, doc } from "firebase/firestore";
 import { ref, uploadBytes,getDownloadURL } from "firebase/storage";
 
 
 const Feed: React.FC<FeedProps> = (props:FeedProps)=>{
     const [showModal, setShowModal] = useState(false);
     const [data, setData] = useState<any[]>([]);
-    
+    const user = auth.currentUser;
+
     useEffect(()=>{
         getPosts();
     },
     []);
-    function getPosts() {
-        const postCollectionRef = collection(db,"Posts");
-        getDocs(postCollectionRef).then(
-            response=>{
-                const psts = response.docs.map(doc=>({
-                    ...doc.data(),
-                    id:doc.id,
-                }));
-                setData(psts);
-            }
-        ).catch(error=>{
-            console.log(error.message);
-        });
+    async function getPosts() {
+        if (user) {
+            const docRef = doc(db, "Users", user!.uid);
+            const docSnap = await getDoc(docRef);
+            const data = docSnap.data();
+            const postCollectionRef = collection(db,"Posts");
+            const q = query(postCollectionRef, where("genre", "in", [...data!.interests]));
+            getDocs(q).then(
+                response=>{
+                    const psts = response.docs.map(doc=>({
+                        ...doc.data(),
+                        id:doc.id,
+                    }));
+                    setData(psts);
+                }
+            ).catch(error=>{
+                console.log(error.message);
+            });
+        }
+        
     }
 
     const AddPost: React.FC<FeedProps> =(props:FeedProps)=>{
         const [image, setImage] = useState<any>(null);
         const [fileName, setFileName] = useState("");
+        const [caption, setCaption] = useState("");
         const [uploadStatus, setUploadStatus] = useState(false);
         const [interest,setInterest]=useState('');
 
@@ -44,36 +53,50 @@ const Feed: React.FC<FeedProps> = (props:FeedProps)=>{
             if (!fileList) return;
             setFileName(fileList[0].name+fileList[0].size);
             setImage(fileList[0]);
+            setUploadStatus(true);
         };
 
-        const handleSubmit = () => {
+        const handleSubmit = async() => {
             const imageRef =  ref(storage, fileName);
+            if (user) {
+                const docRef = doc(db, "Users", user!.uid);
+                const docSnap = await getDoc(docRef);
+            const data = docSnap.data();
             const uploadPost=uploadBytes(imageRef, image);
-            uploadPost.then(async () => {
-                setUploadStatus(true);
-                getDownloadURL(imageRef)
-                .then(async (url) => {
-                    const docRef = await addDoc(collection(db, "Posts"), {
-                        user: "kash",
-                        imgUrl: url,
-                        genre: interest,
-                        like:0,
-                        dislike:0,
+            if (interest!="0") {
+                uploadPost.then(async () => {
+                    setUploadStatus(true);
+                    getDownloadURL(imageRef)
+                    .then(async (url) => {
+                        const docRef = await addDoc(collection(db, "Posts"), {
+                            user: data!.userName,
+                            imgUrl: url,
+                            caption:caption,
+                            genre: interest,
+                            like:0,
+                            likedby:[],
+                            dislike:0,
+                        });
+                    })
+                    .catch((error) => {
+                    console.log(error.message, "error getting the image url");
                     });
+                    setImage(null);
+                    setUploadStatus(false);
+                    setShowModal(false);
+                    setInterest('');
+                    
                 })
                 .catch((error) => {
-                console.log(error.message, "error getting the image url");
+                    console.log(error.message);
                 });
-                setImage(null);
-                setUploadStatus(false);
-                setShowModal(false);
-                setInterest('');
-                
-            })
-            .catch((error) => {
-                console.log(error.message);
-            });
-        };
+            };
+            }else{
+                alert("not logged in");
+            }
+            
+            }
+            
         
         return(
             <div className="modal-background" >
@@ -84,14 +107,13 @@ const Feed: React.FC<FeedProps> = (props:FeedProps)=>{
                 <input type="file" id="file-ip-1" accept="image/*" onChange={handleImageChange}></input>
                 <select className="genre" id="genre" onChange={(e)=>{setInterest(e.target.value)}}>
                     <option value="0" className="">Choose Genre:</option>
-                    <option value="Movies">Movies</option>
-                    <option value="Cars">Cars</option>
-                    <option value="Animals">Animals</option>
-                    <option value="Memes">Memes</option>
-                    <option value="Art">Art</option>
+                    <option value="Photography">Photography</option>
+                    <option value="Fine Art">Fine Art</option>
+                    <option value="Stand Up">Stand Up</option>
+                    <option value="Music">Music</option>
                     <option value="Dance">Dance</option>
-                    <option value="Sports">Sports</option>
                 </select>
+                <textarea className="caption"  placeholder="caption" onChange={(e)=>{setCaption(e.target.value)}} />
                 <button onClick={handleSubmit}>Post</button>
                 </div>
                 </div>

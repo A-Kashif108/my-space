@@ -43,7 +43,6 @@ const Post: React.FC<PostProps> = (props:PostProps)=>{
     }
     const handleDislike =async()=>{
       if(!disLiked){
-      
       setDisLike(disLike+1);
       await updateDoc(PostRef, {
         dislike:disLike+1,
@@ -57,7 +56,6 @@ const Post: React.FC<PostProps> = (props:PostProps)=>{
         setLiked(false);
       }
     }else{
-      
       setDisLike(disLike-1);
       await updateDoc(PostRef, {
         dislike:disLike-1,

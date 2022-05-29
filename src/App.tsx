@@ -1,22 +1,18 @@
 import React from 'react';
-import './App.css';
-import Button from './components/Button/button';
-import Title from './components/Title/title';
-import Feed from './components/Feed/feed';
-import Username from './components/Username/username';
+import { BrowserRouter,Route, Routes } from "react-router-dom";
+import SignUp from './Pages/SignUp/SignUp';
+import Main from './Pages/Main/main';
+import SignIn from './Pages/SignIn/signIn';
 
-function App1() {
+const App1: React.FC=()=> {
   return (
-    <div className='main'>
-    <div className='Header'>
-    <Title />
-    <Username username={'kash'}/>
-    <Button text='Sign Out' onClick={() => { console.log("click"); } } />
-    </div>
-    <div className="App">
-      <Feed data={''}/>
-    </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<SignIn />} />
+        <Route path="/main" element={<Main />} />
+        <Route path="/Signup" element={<SignUp />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
