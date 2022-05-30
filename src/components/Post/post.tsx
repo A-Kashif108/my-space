@@ -3,8 +3,8 @@ import React from "react";
 import { PostProps } from "../../types/postPropType";
 import './post.css';
 import CommentSection from "../Comments/CommentSection";
-import { collection, addDoc, doc, updateDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../../services/firebase";
+import { collection, addDoc, doc, updateDoc, serverTimestamp, getDoc } from "firebase/firestore";
+import { auth, db } from "../../services/firebase";
 
 const Post: React.FC<PostProps> = (props:PostProps)=>{
 
@@ -95,11 +95,18 @@ const Post: React.FC<PostProps> = (props:PostProps)=>{
               }} id="addComment" name="comnt" placeholder="Add a comment..."></input>
             <button onClick={async()=>{
               inputRef.current!.value="";
-              const docRef = await addDoc(collection(db, 'Posts',id,"Comments"), {
-                user: "kash",
-                text: comment,
-                timestamp: serverTimestamp(),
-              });
+              const user = auth.currentUser;
+              if (user) {
+                const userRef  = doc(db,"Users",user!.uid);
+                const userSnap = await getDoc(userRef);
+                const data = userSnap.data();
+                const docRef = await addDoc(collection(db, 'Posts',id,"Comments"), {
+                  user: data!.userName,
+                  text: comment,
+                  timestamp: serverTimestamp(),
+                });
+                
+              }
             }} >Post</button></>}
           </div>
           </div>

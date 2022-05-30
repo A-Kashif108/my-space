@@ -8,7 +8,6 @@ import { auth, db } from '../../services/firebase';
 import {signOut } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
-import { async } from '@firebase/util';
 
 const Main:React.FC=()=> {
     const navigate = useNavigate();

@@ -1,6 +1,6 @@
 .feed{
+ margin-top: 60px;
     flex: 1 1 auto;
-    min-height: 0; 
     overflow-y: auto;
 }
 .page{
@@ -10,4 +10,8 @@
     background-color: #dcdcdc;
     height: 100%;
     width: 43%;
+}
+.AddPost{
+    position: relative;
+    bottom: 15px;
 }
