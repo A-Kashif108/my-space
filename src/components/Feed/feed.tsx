@@ -99,7 +99,7 @@ const Feed: React.FC<FeedProps> = (props:FeedProps)=>{
             
         
         return(
-            <div className="modal-background" >
+            <div className="mod-bg" >
                 <div className="modal" >
                 <div className="form-input">
                 {uploadStatus && <p className="uploaded">Uploaded</p>}

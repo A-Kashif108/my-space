@@ -66,31 +66,33 @@ const Post: React.FC<PostProps> = (props:PostProps)=>{
 
 
     const ModalPost: React.FC<PostProps> = (props:PostProps)=>{
-      
-      if (!showModal) {
-          return null;
-        }
         return (
           <div className="mod-bg" >
+            <div className="row">
             <div className="mod" >
-              <div className="post" >
+              <div className="post_mod" >
                 <div className="user">
                   <p>{user}</p>
                 </div>
-          <img src={imageurl} alt="" />
+          <img className="mod_img" src={imageurl} alt="" />
         </div>
             <div className="actions">
               {!liked&&<button onClick={handleLike} >{Like} Like </button>}
               {liked&&<button onClick={handleLike} >{Like} Liked</button>}
               {!disLiked&&<button onClick={handleDislike}>{disLike} Dislike </button>}
               {disLiked&&<button onClick={handleDislike}>{disLike} Disliked </button>}
-              <button onClick={()=>{setShowComments(!showComments)}} > Comments </button>
-              <button className="toggle-button" onClick={()=>setShowModal(false)}>
+              <button onClick={()=>{
+                setShowComments(!showComments);
+                console.log("clicked");
+                }} > Comments </button>
+              <button className="" onClick={()=>setShowModal(false)}>
                 close
               </button>
             </div>
+            </div>
+            <div className="colmn">
             {showComments&&<CommentSection user={""} text={""} id={id}/>}
-            {showComments&&<><input ref={inputRef} type="text" onChange={async(e)=>{
+            {showComments&&<div><input ref={inputRef} type="text" onChange={async(e)=>{
               comment=e.target.value;
               }} id="addComment" name="comnt" placeholder="Add a comment..."></input>
             <button onClick={async()=>{
@@ -107,24 +109,24 @@ const Post: React.FC<PostProps> = (props:PostProps)=>{
                 });
                 
               }
-            }} >Post</button></>}
+            }} >Post</button></div>}
+            </div>
           </div>
           </div>
         );
   }
     return(
       <>
-      <ModalPost user={""} like={like} dislike={dislike} imageurl={""} id={""} />
+      {showModal&&<ModalPost user={""} like={like} dislike={dislike} imageurl={""} id={""} />}
        <div className="post" onClick={() => setShowModal(true)}>
           <div className="user">
             <p>{user}</p>
           </div>
-          <img src={imageurl} alt="" />
+          <img className="img" src={imageurl} alt="" />
         </div>
         </>
     );
 
 }
-
 export default Post;
 
