@@ -5,6 +5,7 @@ import { auth, db } from "../../services/firebase";
 import { useNavigate } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
 
+// use constants folder/file for constant value
 const interestData = [
     { name: "Photography" },
     { name: "Fine Arts" },
@@ -17,6 +18,7 @@ const SignUp:React.FC =()=>{
 
     const [interests, setInterests] = useState<any>([]);
     var finalInterests: any[] =[];
+    // specify types while using useState like useState<string>("")
     const [email,setEmail] =useState("");
     const [username,setUsername] =useState("");
     const [password,setPassword] =useState("");
@@ -26,6 +28,7 @@ const SignUp:React.FC =()=>{
           setInterests(interestData);
       }, []);
 
+      // why use any ??
       const handleChange = (e: { target: { name: any; checked: any; }; }) => {
         const { name, checked } = e.target;
         if (name === "allSelect") {
@@ -88,6 +91,7 @@ const SignUp:React.FC =()=>{
                     type="checkbox"
                     className="form-check-input"
                     name="allSelect"
+                    // use a variable to show this don't write blogic inside UI
                     checked={!interests.some((interest: { isChecked: boolean; }) => interest?.isChecked !== true)}
                     onChange={handleChange}
             />

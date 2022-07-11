@@ -8,6 +8,7 @@ import { auth, db } from "../../services/firebase";
 
 const Post: React.FC<PostProps> = (props:PostProps)=>{
 
+  // never write db, firebase logic in UI
   const [showModal, setShowModal] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -64,7 +65,7 @@ const Post: React.FC<PostProps> = (props:PostProps)=>{
     }
     }
 
-
+    // create this component in a different file
     const ModalPost: React.FC<PostProps> = (props:PostProps)=>{
         return (
           <div className="mod-bg" >
@@ -95,6 +96,7 @@ const Post: React.FC<PostProps> = (props:PostProps)=>{
             {showComments&&<div><input ref={inputRef} type="text" onChange={async(e)=>{
               comment=e.target.value;
               }} id="addComment" name="comnt" placeholder="Add a comment..."></input>
+              {/* WHY WRITE LOGIC INSIDE UI */}
             <button onClick={async()=>{
               inputRef.current!.value="";
               const user = auth.currentUser;

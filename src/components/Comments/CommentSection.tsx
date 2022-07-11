@@ -8,7 +8,7 @@ import './comment.css'
 
 const CommentSection:React.FC<CommentsPropType> = (props:CommentsPropType)=>{
     const{id} = props;
-    const [data, setData] = useState<any[]>([]);
+    const [data, setData] = useState<any[]>([]); // why use any ??
     
     
     useEffect(()=>{
@@ -25,6 +25,7 @@ const CommentSection:React.FC<CommentsPropType> = (props:CommentsPropType)=>{
             );
             setData(psts);
         },(error)=>{
+            // remove console logs in pushed code
             console.log(error.code);
         });
     }

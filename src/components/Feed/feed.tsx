@@ -18,6 +18,8 @@ const Feed: React.FC<FeedProps> = (props:FeedProps)=>{
     },
     []);
     async function getPosts() {
+
+        // create the function in services firebase section
         if (user) {
             const docRef = doc(db, "Users", user!.uid);
             const docSnap = await getDoc(docRef);
@@ -40,6 +42,7 @@ const Feed: React.FC<FeedProps> = (props:FeedProps)=>{
     }
 
     const AddPost: React.FC<FeedProps> =(props:FeedProps)=>{
+        // create the function in services firebase section
         const [image, setImage] = useState<any>(null);
         const [fileName, setFileName] = useState("");
         const [caption, setCaption] = useState("");
@@ -106,6 +109,7 @@ const Feed: React.FC<FeedProps> = (props:FeedProps)=>{
                 {!uploadStatus && <label htmlFor="file-ip-1">Upload Image</label>}
                 <input type="file" id="file-ip-1" accept="image/*" onChange={handleImageChange}></input>
                 <select className="genre" id="genre" onChange={(e)=>{setInterest(e.target.value)}}>
+                    {/* use .map() for list of similar components like line 132*/}
                     <option value="0" className="">Choose Genre:</option>
                     <option value="Photography">Photography</option>
                     <option value="Fine Art">Fine Art</option>

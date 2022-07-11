@@ -9,6 +9,9 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+
+// use env file for API keys
 const firebaseConfig = {
   apiKey: "AIzaSyCWzLpfTdJv2lxCHjmIHZH_KS-4PwTEPHQ",
   authDomain: "friendspace-3ed5a.firebaseapp.com",

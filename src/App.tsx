@@ -10,12 +10,20 @@ const App1: React.FC=()=> {
       <Routes>
         <Route path="/" element={<SignIn />} />
         <Route path="/main" element={<Main />} />
+        {/* dont use capital letters for routes instead use use "/signin* or "/register"*/}
         <Route path="/Signup" element={<SignUp />} />
       </Routes>
     </HashRouter>
   );
 }
 
+// For folder and file structure follow the convention mentioned during the lecture.(refer Services, API and Firebae)
+// > services
+//    >api
+//       >axios.ts
+//       >apiService.ts
+//       >animalApi.ts
+//    >firebase
 
 export default App1;
 
