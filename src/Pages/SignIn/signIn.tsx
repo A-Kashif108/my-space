@@ -10,6 +10,7 @@ const SignIn:React.FC =()=>{
     const navigate = useNavigate();
     
     const SignIn=()=>{
+        // these firebase functions can be created in a seperate file and here can only be called
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
     // Signed in 
@@ -31,7 +32,7 @@ const SignIn:React.FC =()=>{
             <div className="SignInbox">
                     <p className="txt">SignIn</p>
                 <form className="signInForm">
-                    
+                    {/* dont use setState onchange it will update state every time data is changes.. just assign it to a variable and use it in logic*/}
                     <input className="cred" placeholder="Email" type="text" onChange={(e)=>{setEmail(e.target.value)}} />
                     
                     <input className="cred" placeholder="Password"  type="password" onChange={(e)=>{setPassword(e.target.value)}} />

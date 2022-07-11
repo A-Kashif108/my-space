@@ -8,6 +8,7 @@ import SignUp from './Pages/SignUp/SignUp';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+// why change default name App1
 root.render(
   <React.StrictMode>
     <App1/>

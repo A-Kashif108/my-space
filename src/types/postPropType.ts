@@ -6,4 +6,6 @@ type PostProps = {
     id:string,
     imageurl:string,
 }
+
+// these types needs to be instantiated so can be created as interface
 export type {PostProps}
